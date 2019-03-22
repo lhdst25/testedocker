@@ -21,23 +21,8 @@ def init():
         if message and not isinstance(message, dict):
             flask.abort(404)
 
-        conn = Connection(key='xxxxx',
-                          authurl='https://identity.open.softlayer.com/v3',
-                          auth_version='3',
-                          os_options={"project_id": 'xxxxxx',
-                                      "user_id": 'xxxxxx',
-                                      "region_name": 'dallas'}
-                          )
-
-        obj       = conn.get_object("tensorflow", "retrained_graph.pb")
-        graph_def = tf.GraphDef()
-        graph_def.ParseFromString(obj[1])
-        with graph.as_default():
-            tf.import_graph_def(graph_def)
-
-        obj    = conn.get_object("tensorflow", "retrained_labels.txt")
-        for i in obj[1].decode("utf-8").split():
-            labels.append(i)
+        print(message)
+        answer = {"msg": "o luiz é gayzao"}
 
     except Exception as e:
         print("Error in downloading content")
