@@ -5,5 +5,6 @@ COPY requirements.txt requirements.txt
 RUN  pip install -r   requirements.txt
 
 COPY test.py test.py
+COPY pattern_prediction.py pattern_prediction.py
 
 CMD python -u test.py

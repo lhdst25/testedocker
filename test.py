@@ -4,6 +4,10 @@ import base64
 import numpy               as     np
 import tensorflow          as     tf
 from   swiftclient.service import Connection
+from pattern_recognition import main_patterns
+import jsonpickle
+import pandas as pd
+import pickle
 
 app       = flask.Flask(__name__)
 app.debug = False
@@ -52,12 +56,25 @@ def run():
         
             return error()
 
-        print(args)
+        dict_out = main_patterns(message)
+
+    
+        params = ['minSamples', 'samplesDistance', 'epsAll',
+                  'slopeAngle', 'predictOutlier', 'threshold', 'mse',
+                  'predictPattern', 'scalerAnomaly', 'modelAnomaly',
+                  'modelPattern', 'nClusters', 'resultsPattern']
+
+
+        dict_encode = {}
+        for i in params:
+            dict_encode[i] = jsonpickle.encode(pickle.dumps(dict_out[i]))
+
+        jsondictOut = jsonpickle.encode(dict_encode)
 
         print("=====================================")
         
         print(message)
-        answer = {"msg": "o luiz é gayzao"}
+        answer = {"msg": jsondictOut}
         response = flask.jsonify(answer)
         response.status_code = 200
 
