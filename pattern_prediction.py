@@ -59,6 +59,7 @@ def predict_pattern(dict_in):
 
 def select_keys(dict_in):
     """Return only the selected keys."""
+    print("select itens")
     keys = ['anomaly', 'mse', 'predictPattern']
     dict_out = {}
     for key in keys:
@@ -67,6 +68,8 @@ def select_keys(dict_in):
 
 
 def main_predict_pattern(dict_in):
+    
+    print(dict_in)
     """Main function for web implementation."""
     try:
         for key in ['jsons', 'threshold', 'scalerAnomaly', 'modelAnomaly',

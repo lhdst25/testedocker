@@ -99,6 +99,7 @@ def run():
             
                 pred = main_predict_pattern(dict_in)
             
+                print(pred)
                 for i, j in pred.items():
                     pred[i] = j.tolist()
             
