@@ -37,13 +37,38 @@ def init():
 
 @app.route('/run', methods=['POST'])
 def run():
-    print(tf.__version__)
 
     def error():
         response = flask.jsonify(
             {'error': 'The action did not receive a dictionary as an argument.'})
         response.status_code = 404
         return response
+    
+    def occurredat(dict_in):
+        jsons = dict_in['jsons']
+        dates = []
+        for i in range(len(jsons)):
+            dates.append(jsons[i]["occurredAt"])
+    
+        return dates
+    
+    
+    def organize_dict(dict_in):
+    
+        info = dict_in.copy()
+    
+        listResults = []
+    
+        for i in range(len(info["dates"])):
+            document = {"occurredAt": info["dates"][i],
+                        "fwVersion": info["fwVersion"],
+                        "anomaly": info["anomaly"][i], "mse": info["mse"][i],
+                        "predictPattern": info["predictPattern"][i],
+                        "deviceId": info["deviceId"], "type": "anomaly"}
+            listResults.append(document)
+    
+        return listResults
+
 
     message = flask.request.get_json(force=True, silent=True)
     print(message)
@@ -104,7 +129,13 @@ def run():
                 for i, j in pred.items():
                     pred[i] = j.tolist()
 
-                jsondictOut1 = json.dumps(pred)
+                pred["deviceId"] = args["deviceId"]
+                pred["type"] = "anomaly"
+                pred["fwVersion"] = args["fwVersion"]
+                pred["dates"] = occurredat(args)
+        
+                listResults = organize_dict(pred)
+                jsondictOut1 = json.dumps(listResults)
 
                 answer = {"msg": jsondictOut1}
                 response = flask.jsonify(answer)
