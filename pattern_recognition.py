@@ -292,6 +292,7 @@ def json_out(dict_in):
 
 
 def main_patterns(dict_in):
+    print(dict_in)
     """ Main function for web implementation. """
     try:
         assert 'jsons' in dict_in, "'jsons' key not found"

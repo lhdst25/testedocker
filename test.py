@@ -21,12 +21,12 @@ def init():
     try:
 
         message = flask.request.get_json(force=True, silent=True)
-
+        
         if message and not isinstance(message, dict):
             flask.abort(404)
 
         print(message)
-        answer = {"msg": "o luiz é gayzao"}
+
 
     except Exception as e:
         print("Error in downloading content")
@@ -46,7 +46,7 @@ def run():
         return response
 
     message = flask.request.get_json(force=True, silent=True)
-
+    print(message)
     if message and not isinstance(message, dict):
         return error()
     else:
