@@ -55,8 +55,8 @@ def run():
         if not isinstance(args, dict):
         
             return error()
-
-        dict_out = main_patterns(message)
+        print(args)
+        dict_out = main_patterns(args)
 
     
         params = ['minSamples', 'samplesDistance', 'epsAll',
