@@ -108,6 +108,8 @@ def run():
                 answer = {"msg": jsondictOut1}
                 response = flask.jsonify(answer)
                 response.status_code = 200
+                
+                return response
     
             except Exception as error:
                 return {'error': str(error)}     
