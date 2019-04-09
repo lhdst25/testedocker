@@ -4,9 +4,8 @@ WORKDIR /tensorflow
 COPY requirements.txt requirements.txt
 RUN  pip install -r   requirements.txt
 
-COPY main.py main.py
-COPY pattern_recognition.py pattern_recognition.py
-COPY pattern_prediction.py pattern_prediction.py
+
+COPY time_series.py time_series.py
 COPY DBN /tensorflow/DBN 
 
-CMD python -u main.py
+CMD python -u time_series.py
